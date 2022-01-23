@@ -22,4 +22,5 @@ public:
     void And(); // Se for letra minuscula da zika > and é paralavra reservada
     void Or();  // Se for letra minuscula da zika > or é paralavra reservada
     void slt();
+    void jr();
 };

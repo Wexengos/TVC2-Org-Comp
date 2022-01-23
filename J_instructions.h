@@ -13,6 +13,5 @@ class J_instructions
 private:
 public:
     void j();
-    void jr();
     void jal();
 };

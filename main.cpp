@@ -1,7 +1,7 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Simulator.h"
 
 using namespace std;
 
@@ -72,8 +72,14 @@ void menu()
     cout << "Fim" << endl;
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    string str;
-    menu();
+    Simulator *teste = new Simulator();
+    string input = "00000010001100000100100000100000";
+
+    teste->exec(input);
+    // string str;
+    // menu();
+
+    return 0;
 }
