@@ -75,7 +75,7 @@ void menu()
 int main(int argc, char *argv[])
 {
     Simulator *teste = new Simulator();
-    string input = "00000010001100000100100000100000";
+    string input = "00001110001111110000000000100000";
 
     teste->exec(input);
     // string str;

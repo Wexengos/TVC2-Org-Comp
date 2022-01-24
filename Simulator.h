@@ -7,8 +7,8 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <cstdint>
-#include "./pipeline/Fetch.h"
+//#include <cstdint>
+#include "Fetch.h"
 
 using namespace std;
 
@@ -22,14 +22,14 @@ private:
     int registerValues[32];
     string Instructions[5];
 
-    int32_t maxTam;            //tamanho máximo do input
-    int32_t numInstructions;   //numero de instruções executadas
-    int32_t programCount;      //linha atual de execução da simulação
-    int32_t stopFlag;          //flag de parada de execução
+    int32_t maxTam;          //tamanho máximo do input
+    int32_t numInstructions; //numero de instruções executadas
+    int32_t programCount;    //linha atual de execução da simulação
+    int32_t stopFlag;        //flag de parada de execução
 
 public:
     Simulator();
-    ~Simulator() {};
+    ~Simulator(){};
 
     void exec(string input);
 };

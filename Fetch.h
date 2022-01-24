@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <cstdint>
+//#include <cstdint>
 
 using namespace std;
 
@@ -12,6 +12,7 @@ class Fetch
 {
 private:
     int a;
+
 public:
     Fetch();
     ~Fetch();
