@@ -9,6 +9,7 @@
 #include <algorithm>
 //#include <cstdint>
 #include "Fetch.h"
+#include "Register.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ private:
     Fetch *fetch;
 
     // Array de Registradores
-    string registers[32]; // Mudar esse arruy de string para tipo Registrador
+    Register **reg;
     int registerValues[32];
     string Instructions[5];
 
@@ -32,6 +33,10 @@ public:
     ~Simulator(){};
 
     void exec(string input);
+    void setRegisters();
+
+    void setReg(int i, Register *r) { reg[i] = r; };
+    Register* getReg(int i) { return reg[i]; };
 };
 
 #endif
