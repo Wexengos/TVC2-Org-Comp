@@ -4,20 +4,23 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+
 //#include <cstdint>
 
 using namespace std;
 
-class Fetch
+class IDStage
 {
 private:
-    int a;
+    int opcode;
+    string type;
+    bool execute;
 
 public:
-    Fetch();
-    ~Fetch();
+    IDStage();
+    ~IDStage();
 
-    int32_t getOpcode(string input);
+    void getOpcode(string input);
     void process(string input);
     int32_t binaryToDecimal(string input);
 };

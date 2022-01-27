@@ -4,13 +4,14 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <bitset>
 
 using namespace std;
 
 class Register
 {
 private:
-    int32_t value;
+    bitset<5> value;
     string name;
 
 public:

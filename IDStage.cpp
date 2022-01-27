@@ -5,11 +5,11 @@
 #include <vector>
 #include <algorithm>
 //#include <cstdint>
-#include "Fetch.h"
+#include "IDStage.h"
 
-Fetch::Fetch() {}
+IDStage::IDStage() {}
 
-int32_t Fetch::binaryToDecimal(string input)
+int32_t IDStage::binaryToDecimal(string input)
 {
     unsigned long dec = 0;
     int i = 0;
@@ -29,7 +29,7 @@ int32_t Fetch::binaryToDecimal(string input)
     return dec;
 }
 
-int32_t Fetch::getOpcode(string input)
+void IDStage::getOpcode(string input)
 {
     string aux;
     for (int i = 0; i < 6; i++)
@@ -39,19 +39,12 @@ int32_t Fetch::getOpcode(string input)
 
     cout << "imprime o cabuloso " << aux << endl;
 
-    return binaryToDecimal(aux);
-}
-
-void Fetch::process(string input)
-{
-    int32_t opcode = getOpcode(input);
-
     if (opcode == 0)
-        cout << "instrução R" << endl;
+        this->type = "R";
     else if (opcode == 2 || opcode == 3)
-        cout << "Instrução J" << endl;
+        this->type = "J";
     else if (opcode >= 5 || opcode <= 43)
-        cout << "Instrução I" << endl;
+        this->type = "I";
     else
-        cout << "Instrução zoada." << endl;
+        this->type = "ERROR";
 }

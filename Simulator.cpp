@@ -8,7 +8,8 @@ using namespace std;
 Simulator::Simulator()
 {
     reg = new Register *[32];
-    Fetch *fetch = new Fetch();
+    IFStage *IF = new IFStage();
+    IDStage *ID = new IDStage();
 }
 
 void Simulator::setRegisters()
@@ -33,8 +34,8 @@ void Simulator::exec(string input)
 {
     cout << "Hhaahhahahaha" << endl;
     setRegisters();
-    fetch->process(input);
-
+    IF->setInstrction(input);
+    ID->getOpcode(IF->GetInstrction());
     for (int i = 0; i < 32; i++)
     {
         cout << "O registrador é o " << reg[i]->getName() << endl;
