@@ -4,26 +4,19 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "Register.h"
+#include "Registers.h"
 
 using namespace std;
 
 class Memory
 {
-    private:
-        Register *r_alu_result;
-        Register *r_store;
-        Register *rs;
-        Register *rt;
-        Register *w_r_addr;
-
+private:
         bool rd_mem;
-        bool wrt_mem;
-        bool wrt_e;
-        bool execute;
-        
+    bool wrt_mem;
+    bool wrt_e;
+    bool execute;
 
-    public:
-        Memory();
-        ~Memory();
+public:
+    Memory();
+    ~Memory();
 };

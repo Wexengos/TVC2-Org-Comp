@@ -5,27 +5,27 @@
 #include <vector>
 #include <algorithm>
 #include <bitset>
-
+#include "Word.hpp"
 using namespace std;
 
-class Register
+class Registers
 {
 private:
-    bitset<5> value;
+    Word value;
     string name;
 
 public:
-    Register()
+    Registers()
     {
         value = 0;
         name = "";
     };
-    ~Register(){};
+    ~Registers(){};
 
-    int32_t getValue() { return value; };
+    Word getValue() { return value; };
     string getName() { return name; };
 
-    void setValue(int32_t val) { value = val; };
+    void setValue(Word val) { value = val; };
     void setName(string nam)
     {
         name = nam;

@@ -7,9 +7,14 @@ using namespace std;
 
 Simulator::Simulator()
 {
-    reg = new Register *[32];
+    PC = 0;
+    registers = new Registers *[32];
+    memory = new Memory *[32];
+
     IFStage *IF = new IFStage();
     IDStage *ID = new IDStage();
+    EXStage *EX = new EXStage();
+    WBStage *WB = new WBStage();
 }
 
 void Simulator::setRegisters()
@@ -19,7 +24,7 @@ void Simulator::setRegisters()
 
     for (int i = 0; i < 32; i++)
     {
-        Register *temp = new Register();
+        Registers *temp = new Registers();
         temp->setName(tempRegisters[i]);
         temp->setValue(i);
 
@@ -30,14 +35,27 @@ void Simulator::setRegisters()
     }
 }
 
+void Simulator::IFStageExec(string input)
+{
+    cout << "INPUT IF Stage exec" << input << endl;
+    IF->setInstrction(input);
+    IF->setThisInstAddr(this->PC);
+}
+
+void Simulator::IDStageExec()
+{
+    this->IF->GetInstrction();
+}
+
 void Simulator::exec(string input)
 {
     cout << "Hhaahhahahaha" << endl;
     setRegisters();
-    IF->setInstrction(input);
-    ID->getOpcode(IF->GetInstrction());
-    for (int i = 0; i < 32; i++)
+
+    this->IFStageExec(input);
+
     {
-        cout << "O registrador é o " << reg[i]->getName() << endl;
+        for (int i = 0; i < 32; i++)
+            cout << "O registrador é o " << registers[i]->getName() << endl;
     }
 }

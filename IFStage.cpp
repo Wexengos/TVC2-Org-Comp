@@ -7,12 +7,8 @@
 //#include <cstdint>
 #include "IFStage.h"
 
-IFStage::IFStage() 
+IFStage::IFStage()
 {
     execute = 0;
-    PC = 0;
-    instruction = '';
 }
-IFStage::~IFStage();
-
-
+// IFStage::~IFStage();
