@@ -12,16 +12,19 @@ using namespace std;
 class IDStage
 {
 private:
-    // InfoInst info;
+    InfoInst info;
     int opcode;
     string type;
-    bool execute;
+    bool executed;
 
 public:
     IDStage();
     ~IDStage();
 
-    void getOpcode(string input);
+    string binToType(string input);
     void process(string input);
-    int32_t binaryToDecimal(string input);
+    void binaryToDecimal(string input);
+
+    bool getExecuted() { return executed; };
+    void setExecuted(bool val) { executed = val; };
 };

@@ -11,9 +11,11 @@ class WBStage
 {
 private:
     bool wrt_e;
-    bool execute;
+    bool executed;
 
 public:
-    WBStage();
-    ~WBStage();
+    WBStage(){};
+    ~WBStage(){};
+    bool getExecuted() { return executed; };
+    void setExecuted(bool val) { executed = val; };
 };

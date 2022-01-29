@@ -1,3 +1,6 @@
+#ifndef REGISTERS_H
+#define REGISTERS_H
+
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -31,3 +34,5 @@ public:
         name = nam;
     };
 };
+
+#endif

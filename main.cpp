@@ -1,34 +1,40 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Simulator.h"
 
 using namespace std;
 
 /* Função de de ler arquivo*/
-void read_txt(string &s)
+void read_txt(vector<string> &s)
 {
+    cout << "COMEÇOU - lendo arquivo " << endl;
     ifstream arq("input.txt");
 
     if (arq.is_open())
     {
 
         string str;
-        int count = 1;
+        int count = 0;
 
         while (getline(arq, str))
         {
+            s.push_back(str);
+            cout << "Instrucao numero " << count << ": " << s[count] << endl;
             count++;
         }
-
-        s = str;
     }
     else
         cerr << "ERRO: O arquivo nao pode ser aberto!" << endl;
+
+    cout << "FECHOU " << endl;
 }
 
 void menu()
 {
+    vector<string> instructions;
+
     int menu;
     cout << "====================MENU PRINCIPAL====================" << endl;
     cout << "Digite:" << endl;
@@ -42,8 +48,19 @@ void menu()
     switch (menu)
     {
     case 1:
+    {
         cout << "Etapa 1" << endl;
+        read_txt(instructions);
+
+        for (int i = 0; i < instructions.size(); i++)
+        {
+            Simulator *MIPS = new Simulator();  // nova instância para o Pipeline do simulador
+
+            cout << "VAI EXECUTAR O " << instructions[i] << endl;
+            MIPS->exec(instructions[i]);
+        };
         break;
+    }
 
     case 2:
 
@@ -74,12 +91,7 @@ void menu()
 
 int main(int argc, char *argv[])
 {
-    Simulator *teste = new Simulator();
-    string input = "00001110001111110000000000100000";
-
-    teste->exec(input);
-    // string str;
-    // menu();
+    menu();
 
     return 0;
 }

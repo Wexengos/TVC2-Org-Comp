@@ -14,15 +14,18 @@ private:
     InfoInst info;
     int nextInstAddr, thisInstAddr;
     string instruction;
-    bool execute;
+    bool executed;
+    
 
 public:
     IFStage();
     ~IFStage();
-    void setInstrction(string input) { instruction = input; };
-    string GetInstrction() { return instruction; };
+    void setInstruction(string input) { instruction = input; };
+    string getInstruction() { return instruction; };
     void setNextInstAddr(int value) { nextInstAddr = value; };
     int getNextInstAddr() { return nextInstAddr; };
     void setThisInstAddr(int value) { thisInstAddr = value; };
     int getThisInstAddr() { return thisInstAddr; };
+    bool getExecuted() { return executed; };
+    void setExecuted(bool val) { executed = val; };
 };

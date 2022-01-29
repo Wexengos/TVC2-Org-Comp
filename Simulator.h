@@ -31,6 +31,9 @@ private:
 
     int PC;
 
+    bool PC_left;
+    bool isIFStage, isIDStage, isEXStage, isMEMStage, isWBStage;
+
 public:
     Simulator();
     ~Simulator(){};

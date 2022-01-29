@@ -9,6 +9,6 @@
 
 IFStage::IFStage()
 {
-    execute = 0;
+    
 }
 // IFStage::~IFStage();

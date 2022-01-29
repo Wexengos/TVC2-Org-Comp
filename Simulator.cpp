@@ -5,6 +5,12 @@
 
 using namespace std;
 
+struct BinaryInst
+{
+public:
+    byte b[16];
+};
+
 Simulator::Simulator()
 {
     PC = 0;
@@ -37,25 +43,68 @@ void Simulator::setRegisters()
 
 void Simulator::IFStageExec(string input)
 {
+    // cout << reinterpret_cast<BinaryInst*>(32+1) << " REINTERPRETOU" << endl;
+    if (this->isIDStage || this->PC_left)
+    {
+        isIFStage = true;
+
+        return;
+    }
+
     cout << "INPUT IF Stage exec" << input << endl;
-    IF->setInstrction(input);
-    IF->setThisInstAddr(this->PC);
+
+    cout << "SIZE OF INPUT " << sizeof(input) << " bytes";
+
+    this->IF->setInstruction(input);
+    this->IF->setThisInstAddr(this->PC);
+    this->IF->setNextInstAddr(this->PC + sizeof(input));
+
+    this->PC_left = true;
+    this->IF->setExecuted(false);
+    this->isIFStage = false;
 }
 
 void Simulator::IDStageExec()
 {
-    this->IF->GetInstrction();
+    if (this->IF->getExecuted())
+    {
+        cout << "cagou aq no " << this->IF->getExecuted() << endl;
+        return;
+    }
+
+    if (this->isEXStage)
+        this->isIDStage = true;
+    {
+        cout << "cagou acolá" << endl;
+        return;
+    }
+
+    cout << "Instrução maneira: " << this->IF->getInstruction() << endl;
+
+    InfoInst auxInfoInst;
+    auxInfoInst.setType(this->ID->binToType(this->IF->getInstruction()));
+    auxInfoInst.setConstant(Word((int)0));
+    auxInfoInst.setOffset(Word((int)0));
+    auxInfoInst.setAddress(Word((int)0));
+
+    cout << "O tipo é " << auxInfoInst.getType() << endl;
+
+    // else if (_instInfo.instType == _jal || _instInfo.instType == _jalr) {
+    //     _instInfo.rd = 31;
+    //     _instInfo.rde = true;
+    //     ++(registerStatus[31]);
+    // }
 }
 
 void Simulator::exec(string input)
 {
-    cout << "Hhaahhahahaha" << endl;
     setRegisters();
 
     this->IFStageExec(input);
+    this->IDStageExec();
 
-    {
-        for (int i = 0; i < 32; i++)
-            cout << "O registrador é o " << registers[i]->getName() << endl;
-    }
+    // {
+    //     for (int i = 0; i < 32; i++)
+    //         cout << "O registrador é o " << registers[i]->getName() << endl;
+    // }
 }

@@ -9,7 +9,7 @@
 
 IDStage::IDStage() {}
 
-int32_t IDStage::binaryToDecimal(string input)
+void IDStage::binaryToDecimal(string input)
 {
     unsigned long dec = 0;
     int i = 0;
@@ -26,25 +26,39 @@ int32_t IDStage::binaryToDecimal(string input)
     };
 
     cout << "\nEquivalente decimal do número binario: " << dec << endl;
-    return dec;
+
+    this->opcode = dec;
 }
 
-void IDStage::getOpcode(string input)
+string IDStage::binToType(string input)
 {
+    cout << endl << "Chegou no BINTOTYPE o " << input << endl;
     string aux;
     for (int i = 0; i < 6; i++)
     {
         aux += input[i];
     }
 
-    cout << "imprime o cabuloso " << aux << endl;
+    this->binaryToDecimal(aux);
 
-    if (opcode == 0)
+    if (this->opcode == 0)
+    {
         this->type = "R";
+        return "R";
+    }
     else if (opcode == 2 || opcode == 3)
+    {
         this->type = "J";
+        return "J";
+    }
     else if (opcode >= 5 || opcode <= 43)
+    {
         this->type = "I";
+        return "I";
+    }
     else
+    {
         this->type = "ERROR";
+        return "ERROR";
+    }
 }
