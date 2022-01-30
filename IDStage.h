@@ -27,4 +27,7 @@ public:
 
     bool getExecuted() { return executed; };
     void setExecuted(bool val) { executed = val; };
+
+    int getOpcode() { return opcode; };
+    void setOpcode(int val) { opcode = val; };
 };

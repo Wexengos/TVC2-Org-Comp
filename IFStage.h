@@ -1,3 +1,6 @@
+#ifndef IF_H
+#define IF_HP
+
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -15,17 +18,29 @@ private:
     int nextInstAddr, thisInstAddr;
     string instruction;
     bool executed;
-    
 
 public:
-    IFStage();
+    IFStage()
+    {
+        executed = false;
+        nextInstAddr = 0;
+        thisInstAddr = 0;
+        instruction = "";
+    };
     ~IFStage();
-    void setInstruction(string input) { instruction = input; };
+    void setInstruction(string input)
+    {
+        instruction = input;
+    };
     string getInstruction() { return instruction; };
+
     void setNextInstAddr(int value) { nextInstAddr = value; };
     int getNextInstAddr() { return nextInstAddr; };
     void setThisInstAddr(int value) { thisInstAddr = value; };
     int getThisInstAddr() { return thisInstAddr; };
+
     bool getExecuted() { return executed; };
     void setExecuted(bool val) { executed = val; };
 };
+
+#endif

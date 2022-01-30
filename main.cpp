@@ -9,7 +9,7 @@ using namespace std;
 /* Função de de ler arquivo*/
 void read_txt(vector<string> &s)
 {
-    cout << "COMEÇOU - lendo arquivo " << endl;
+    cout << "Lendo arquivo..." << endl;
     ifstream arq("input.txt");
 
     if (arq.is_open())
@@ -21,14 +21,13 @@ void read_txt(vector<string> &s)
         while (getline(arq, str))
         {
             s.push_back(str);
-            cout << "Instrucao numero " << count << ": " << s[count] << endl;
             count++;
         }
     }
     else
         cerr << "ERRO: O arquivo nao pode ser aberto!" << endl;
 
-    cout << "FECHOU " << endl;
+    cout << "Finalizando Leitura de arquivo." << endl;
 }
 
 void menu()
@@ -54,9 +53,8 @@ void menu()
 
         for (int i = 0; i < instructions.size(); i++)
         {
-            Simulator *MIPS = new Simulator();  // nova instância para o Pipeline do simulador
-
-            cout << "VAI EXECUTAR O " << instructions[i] << endl;
+            Simulator *MIPS = new Simulator(); // nova instância para o Pipeline do simulador
+            cout << "Instrucao numero " << i << ": " << instructions[i] << endl;
             MIPS->exec(instructions[i]);
         };
         break;
@@ -79,7 +77,7 @@ void menu()
         break;
     case 5:
         cout << "Fechando Exec!" << endl;
-        //exit(1);
+        // exit(1);
         break;
 
     default:
