@@ -56,8 +56,7 @@ void Simulator::IFStageExec(string input)
     }
     cout << "1:... " << endl;
     IFStage *aux = new IFStage();
-    cout << aux.getThisInstAddr();
-    aux.setInstruction(input);
+    aux->setInstruction(input);
     cout << "2:..." << endl;
     this->IF->setThisInstAddr(this->PC);
     this->IF->setNextInstAddr(this->PC + sizeof(input));
