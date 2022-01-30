@@ -42,6 +42,7 @@ public:
     void IFStageExec(string input);
     void IDStageExec();
     void setRegisters();
+    void printRegisters();
 
     void setReg(int i, Registers *r) { registers[i] = r; };
     Registers *getReg(int i) { return registers[i]; };

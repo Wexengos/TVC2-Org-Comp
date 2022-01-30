@@ -30,9 +30,7 @@ public:
     ~IFStage();
     void setInstruction(string input)
     {
-        cout << input << " foi" << endl;
         instruction = input;
-        cout << instruction << " foi??" << endl;
     };
     string getInstruction() { return instruction; };
 

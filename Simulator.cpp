@@ -42,22 +42,31 @@ void Simulator::setRegisters()
     }
 }
 
+void Simulator::printRegisters()
+{
+    cout << "Banco de registradores: " << endl;
+    for (int i = 0; i < 32; i++)
+    {
+        cout << i+1 << " - Registrador -> " << this->getReg(i)->getName() << endl;
+    }
+}
+
 void Simulator::IFStageExec(string input)
 {
 
-    cout << "Excutando IFStage." << endl;
-    // cout << reinterpret_cast<BinaryInst*>(32+1) << " REINTERPRETOU" << endl;
-    cout << "isIDStage: " << this->isIDStage << "pc_left" << this->PC_left << endl;
+    cout << endl
+         << "Excutando IFStage." << endl;
+
     if (this->isIDStage || this->PC_left)
     {
         isIFStage = true;
         cout << "Fechando IFStage." << endl;
         return;
     }
-    cout << "1:... " << endl;
+
     IFStage *aux = new IFStage();
+
     aux->setInstruction(input);
-    cout << "2:..." << endl;
     aux->setThisInstAddr(this->PC);
     aux->setNextInstAddr(this->PC + sizeof(input));
 
@@ -70,27 +79,34 @@ void Simulator::IFStageExec(string input)
 
 void Simulator::IDStageExec()
 {
-    cout << "Excutando IDStage." << endl;
+    cout << endl
+         << "Executando IDStage." << endl;
     if (this->IF->getExecuted())
     {
-        cout << "cagou aq no " << this->IF->getExecuted() << endl;
         return;
     }
 
-    // if (this->isEXStage)
-    // {
-    //     this->isIDStage = true;
-    //     // return;
-    // }
+    if (this->isEXStage)
+    {
+        this->isIDStage = true;
+        //
+    }
+
     cout << "IDStage >> " << IF->getInstruction();
+
     InfoInst auxInfoInst;
-    auxInfoInst.setType(this->ID->binToType(this->IF->getInstruction()));
+
+    IDStage *aux = new IDStage();
+
+    auxInfoInst.setType(aux->binToType(IF->getInstruction()));
     auxInfoInst.setConstant(Word((int)0));
     auxInfoInst.setOffset(Word((int)0));
     auxInfoInst.setAddress(Word((int)0));
-    cout << "ANTES DE IMPRIMIE >> " << endl;
-    cout << "Opcode da intrucao >> " << ID->getOpcode() << endl;
-    cout << "O tipo da intrucao >> " << auxInfoInst.getType() << endl;
+
+    ID = aux;
+
+    cout << "Opcode da instrucao >> " << ID->getOpcode() << endl;
+    cout << "O tipo da instrucao >> " << auxInfoInst.getType() << endl;
 
     // else if (_instInfo.instType == _jal || _instInfo.instType == _jalr) {
     //     _instInfo.rd = 31;
@@ -103,9 +119,12 @@ void Simulator::IDStageExec()
 
 void Simulator::exec(string input)
 {
+
     setRegisters();
     this->IFStageExec(input);
     this->IDStageExec();
+
+    printRegisters();
 
     // {
     //     for (int i = 0; i < 32; i++)
