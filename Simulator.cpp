@@ -58,12 +58,13 @@ void Simulator::IFStageExec(string input)
     IFStage *aux = new IFStage();
     aux->setInstruction(input);
     cout << "2:..." << endl;
-    this->IF->setThisInstAddr(this->PC);
-    this->IF->setNextInstAddr(this->PC + sizeof(input));
+    aux->setThisInstAddr(this->PC);
+    aux->setNextInstAddr(this->PC + sizeof(input));
 
     this->PC_left = true;
-    this->IF->setExecuted(false);
+    aux->setExecuted(false);
     this->isIFStage = false;
+    IF = aux;
     cout << "Finalizando  IFStage." << endl;
 }
 
@@ -76,19 +77,18 @@ void Simulator::IDStageExec()
         return;
     }
 
-    if (this->isEXStage)
-        this->isIDStage = true;
-    {
-        cout << "cagou acolá" << endl;
-        return;
-    }
-
+    // if (this->isEXStage)
+    // {
+    //     this->isIDStage = true;
+    //     // return;
+    // }
+    cout << "IDStage >> " << IF->getInstruction();
     InfoInst auxInfoInst;
     auxInfoInst.setType(this->ID->binToType(this->IF->getInstruction()));
     auxInfoInst.setConstant(Word((int)0));
     auxInfoInst.setOffset(Word((int)0));
     auxInfoInst.setAddress(Word((int)0));
-
+    cout << "ANTES DE IMPRIMIE >> " << endl;
     cout << "Opcode da intrucao >> " << ID->getOpcode() << endl;
     cout << "O tipo da intrucao >> " << auxInfoInst.getType() << endl;
 

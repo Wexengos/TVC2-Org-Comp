@@ -28,11 +28,14 @@ void IDStage::binaryToDecimal(string input)
     cout << "\nEquivalente decimal do número binario: " << dec << endl;
 
     this->opcode = dec;
+
+    cout << opcode;
 }
 
 string IDStage::binToType(string input)
 {
-    cout << endl << "Chegou no BINTOTYPE o " << input << endl;
+    cout << endl
+         << "Chegou no BINTOTYPE o " << input << endl;
     string aux;
     for (int i = 0; i < 6; i++)
     {
@@ -44,16 +47,19 @@ string IDStage::binToType(string input)
     if (this->opcode == 0)
     {
         this->type = "R";
+        cout << "retornando" << endl;
         return "R";
     }
     else if (opcode == 2 || opcode == 3)
     {
         this->type = "J";
+        cout << "retornando" << endl;
         return "J";
     }
     else if (opcode >= 5 || opcode <= 43)
     {
         this->type = "I";
+        cout << "retornando" << endl;
         return "I";
     }
     else
