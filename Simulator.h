@@ -8,12 +8,12 @@
 #include <vector>
 #include <algorithm>
 //#include <cstdint>
+#include "Registers.h"
 #include "IFStage.h"
 #include "IDStage.h"
 #include "EXStage.h"
+#include "MEMStage.h"
 #include "WBStage.h"
-#include "Memory.h"
-#include "Registers.h"
 
 using namespace std;
 
@@ -23,13 +23,13 @@ private:
     IFStage *IF;
     IDStage *ID;
     EXStage *EX;
+    MEMStage *MEM;
     WBStage *WB;
 
-    // Array de Registradores
-    Registers **registers;
-    Memory **memory;
-
     int PC;
+    Registers **registers;
+    bitset<32> memory[512];
+    bitset<32> memory_data[512];
 
     bool PC_left;
     bool isIFStage, isIDStage, isEXStage, isMEMStage, isWBStage;
@@ -41,11 +41,13 @@ public:
     void exec(string input);
     void IFStageExec(string input);
     void EXStageExec();
+    void WBStage();
     void IDStageExec();
     void setRegisters();
     void printRegisters();
 
     void setReg(int i, Registers *r) { registers[i] = r; };
+    void setRegValue(int i, bitset<32> val) { registers[i]->setValue(val); };
     Registers *getReg(int i) { return registers[i]; };
 };
 

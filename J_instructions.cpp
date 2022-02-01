@@ -5,30 +5,18 @@
 #include <vector>
 #include <algorithm>
 #include "J_instructions.h"
-
-J_instructions::J_instructions() {}
-
-J_instructions::~J_instructions() {}
-
-void J_instructions::j(Word *res, Word address)
+J_instructions::J_instructions()
 {
-    cout << "Pending 'j'" << endl;
-};
-
-void J_instructions::jal(Word *res, Word address)
+}
+string J_instructions::j_type(int opcode)
 {
-    res->i = address.i;
-};
-
-void J_instructions::j_type(Word *res, Word address, int function)
-{
-    switch (function)
+    switch (opcode)
     {
-    case 32:
-        j(res, address);
+    case 2:
+        return "j";
         break;
-    case 43:
-        jal(res, address);
+    case 0:
+        return "jr";
         break;
 
     default:

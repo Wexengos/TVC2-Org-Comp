@@ -16,12 +16,9 @@ class I_instructions
 {
 private:
 public:
-    void addi(Word res, Word a0, Word a1);
-    void lw(Word res, Word a0, Word a1);
-    void sw(Word res, Word a0, Word a1);
-    void beq(Word res, Word a0, Word a1);
-    void bne(Word res, Word a0, Word a1);
-    void i_type();
+    I_instructions();
+    ~I_instructions();
+    string i_type(int opcode);
 };
 
 #endif

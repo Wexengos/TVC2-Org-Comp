@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <bitset>
 #include <algorithm>
 #include "InfoInst.h"
 
@@ -14,8 +15,7 @@ using namespace std;
 class IFStage
 {
 private:
-    InfoInst info;
-    int nextInstAddr, thisInstAddr;
+    bitset<32> PC;
     string instruction;
     bool executed;
 
@@ -23,8 +23,6 @@ public:
     IFStage()
     {
         executed = false;
-        nextInstAddr = 0;
-        thisInstAddr = 0;
         instruction = "";
     };
     ~IFStage();
@@ -34,10 +32,8 @@ public:
     };
     string getInstruction() { return instruction; };
 
-    void setNextInstAddr(int value) { nextInstAddr = value; };
-    int getNextInstAddr() { return nextInstAddr; };
-    void setThisInstAddr(int value) { thisInstAddr = value; };
-    int getThisInstAddr() { return thisInstAddr; };
+    void setPC(int value) { PC = value; };
+    bitset<32> getPC() { return PC; };
 
     bool getExecuted() { return executed; };
     void setExecuted(bool val) { executed = val; };

@@ -6,9 +6,39 @@
 #include <algorithm>
 #include "I_instructions.h"
 
-void addi(Word res, Word a0, Word a1);
-void lw(Word res, Word a0, Word a1);
-void sw(Word res, Word a0, Word a1);
-void beq(Word res, Word a0, Word a1);
-void bne(Word res, Word a0, Word a1);
-void i_type();
+I_instructions::I_instructions()
+{
+}
+
+string I_instructions::i_type(int opcode)
+{
+    switch (opcode)
+    {
+    case 35:
+        // add(res, a0, a1);
+        return "lw";
+        break;
+    case 43:
+        return "sw";
+        // sub(res, a0, a1);
+        break;
+    case 4:
+        // Or(res, a0, a1);
+        return "beq";
+        break;
+    case 5:
+        // slt(res, a0, a1);
+        return "bne";
+        break;
+    case 8:
+        // jr(res, a0, a1);
+        return "addi";
+        break;
+    case 2:
+        // jr(res, a0, a1);
+        return "addi";
+        break;
+    default:
+        break;
+    }
+};

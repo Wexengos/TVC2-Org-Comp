@@ -9,33 +9,65 @@
 #include <algorithm>
 
 //#include <cstdint>
-#include "Word.hpp"
 
 using namespace std;
 
 class InfoInst
 {
 private:
-    string type;
-    byte rd;
-    Word rsv, rtv, $a0, $a1;
-    Word constant, offset, pc, address;
-    bool rse, rte, rde; // Controla se o registrador foi executado;
+    bool executed, type_i, mem_read, mem_write, reg_write;
+    bitset<32> PC;
+    bitset<5> rs;
+    bitset<5> rt;
+    bitset<32> reg1;
+    bitset<32> reg2;
+    bitset<16> Immediate;
+    bitset<2> alu_op;
+    bitset<5> address;
+    string instruction;
+
 public:
-    InfoInst()
-    {
-        rd = byte(255);
-        rse = rte = rde = false;
-    };
+    InfoInst(){};
     ~InfoInst(){};
-    string getType() { return type; };
-    void setType(string val) { type = val; };
-    Word getConstant() { return constant; };
-    void setConstant(Word val) { constant = val; };
-    Word getOffset() { return offset; };
-    void setOffset(Word val) { offset = val; };
-    Word getAddress() { return address; };
-    void setAddress(Word val) { address = val; };
+
+    void setAddress(bitset<5> val) { address = val; };
+    bitset<5> getAddress() { return address; };
+
+    void setAluOp(bitset<2> val) { alu_op = val; };
+    bitset<2> getAluOp() { return alu_op; };
+
+    void setImmediate(bitset<16> val) { Immediate = val; };
+    bitset<16> getImmediate() { return Immediate; };
+
+    void setReg1(bitset<32> val) { reg1 = val; };
+    bitset<32> getReg1() { return reg1; };
+
+    void setReg2(bitset<32> val) { reg2 = val; };
+    bitset<32> getReg2() { return reg2; };
+
+    void setRt(bitset<5> val) { rt = val; };
+    bitset<5> getRt() { return rt; };
+
+    void setRs(bitset<5> val) { rs = val; };
+    bitset<5> getRs() { return rs; };
+
+    void setPC(bitset<32> val) { PC = val; };
+    bitset<32> getPC() { return PC; };
+
+    void setTypeI(bool val) { type_i = val; };
+    bool getTypeI() { return type_i; };
+
+    void setMemRead(bool val) { mem_read = val; };
+    bool getMemRead() { return mem_read; };
+
+    void setMemWrite(bool val) { mem_write = val; };
+    bool getMemWrite() { return mem_write; };
+
+    void setRegWrite(bool val) { reg_write = val; };
+    bool getRegWrite() { return reg_write; };
+
+    void setInstruction(string str) { instruction = str; };
+    string getInstruction() { return instruction; };
 };
 
 #endif

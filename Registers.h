@@ -8,13 +8,12 @@
 #include <vector>
 #include <algorithm>
 #include <bitset>
-#include "Word.hpp"
 using namespace std;
 
 class Registers
 {
 private:
-    Word value;
+    bitset<32> value;
     string name;
 
 public:
@@ -25,10 +24,10 @@ public:
     };
     ~Registers(){};
 
-    Word getValue() { return value; };
+    bitset<32> getValue() { return value; };
     string getName() { return name; };
 
-    void setValue(Word val) { value = val; };
+    void setValue(bitset<32> val) { value = val; };
     void setName(string nam)
     {
         name = nam;
