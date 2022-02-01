@@ -1,3 +1,6 @@
+#ifndef I_INSTRUCTIONS_H
+#define I_INSTRUCTIONS_H
+
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -18,4 +21,7 @@ public:
     void sw(Word res, Word a0, Word a1);
     void beq(Word res, Word a0, Word a1);
     void bne(Word res, Word a0, Word a1);
+    void i_type();
 };
+
+#endif

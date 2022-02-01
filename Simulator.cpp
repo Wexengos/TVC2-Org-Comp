@@ -3,6 +3,7 @@
 //#include <cstdint>
 #include "Simulator.h"
 #include "R_instructions.h"
+#include "J_instructions.h"
 
 using namespace std;
 
@@ -133,17 +134,28 @@ void Simulator::EXStageExec()
     switch (str)
     {
     case 'R':
-
+    {
+        R_instructions *rtype = new R_instructions();
+        rtype->r_type(&res, &a0, &a1, ID->getFunction());
         break;
+    }
     case 'J':
-
+    {
+        J_instructions *jtype = new J_instructions();
+        jtype->j_type(&res, auxInfoInst.getAddress(), ID->getFunction());
         break;
+    }
     case 'I':
-
+    {
+        cout << "Pending: I Type" << endl;
+        return;
         break;
+    }
     default:
         break;
     }
+
+    cout << "Los Registras: res: " << res.i << ", a0: " << a0.i << ", a1: " << a1.i << endl;
 }
 
 void Simulator::exec(string input)

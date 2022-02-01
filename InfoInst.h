@@ -19,7 +19,7 @@ private:
     string type;
     byte rd;
     Word rsv, rtv, $a0, $a1;
-    Word constant, offset, address;
+    Word constant, offset, pc, address;
     bool rse, rte, rde; // Controla se o registrador foi executado;
 public:
     InfoInst()
