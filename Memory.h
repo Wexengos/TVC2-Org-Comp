@@ -11,7 +11,7 @@ using namespace std;
 class Memory
 {
 private:
-        bool rd_mem;
+    bool rd_mem;
     bool wrt_mem;
     bool wrt_e;
     bool execute;

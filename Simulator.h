@@ -40,6 +40,7 @@ public:
 
     void exec(string input);
     void IFStageExec(string input);
+    void EXStageExec();
     void IDStageExec();
     void setRegisters();
     void printRegisters();

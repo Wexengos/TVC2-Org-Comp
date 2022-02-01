@@ -9,14 +9,17 @@
 
 IDStage::IDStage() {}
 
-void IDStage::binaryToDecimal(string input)
+void IDStage::binaryToDecimal(string input, string auxFunct)
 {
     unsigned long dec = 0;
+    unsigned long dec2 = 0;
     int i = 0;
-    int s;
+    int j = 0;
+    int s, s2;
 
     s = input.size();
-
+    s2 = input.size();
+    cout << "pintinho: " << auxFunct << endl;
     while (s--)
     {
         if (input[s] == '0' || input[s] == '1')
@@ -24,23 +27,36 @@ void IDStage::binaryToDecimal(string input)
             dec = dec + pow(2, i++) * (input[s] - '0');
         }
     };
+    while (s2--)
+    {
+        if (auxFunct[s2] == '0' || auxFunct[s2] == '1')
+        {
+            dec2 = dec2 + pow(2, j++) * (auxFunct[s2] - '0');
+        }
+    }
 
-    cout << "\nEquivalente decimal do numero binario: " << dec << endl;
+    cout << "\nEquivalente decimal do numero binario: " << dec << "||" << dec2 << endl;
 
     this->opcode = dec;
-
-    cout << opcode;
+    this->function = dec2;
 }
 
 string IDStage::binToType(string input)
 {
-    string aux;
+    string auxOp, auxFunct;
+
     for (int i = 0; i < 6; i++)
     {
-        aux += input[i];
+        auxOp += input[i];
     }
 
-    this->binaryToDecimal(aux);
+    for (int s = 26; s < 32; s++)
+    {
+
+        auxFunct += input[s];
+    }
+
+    this->binaryToDecimal(auxOp, auxFunct);
 
     if (this->opcode == 0)
     {

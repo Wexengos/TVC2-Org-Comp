@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include "Word.hpp"
 
 using namespace std;
 // add, sub, and, or, slt
@@ -11,16 +12,14 @@ using namespace std;
 class R_instructions
 {
 private:
-    // Array de Registradores
-    string registers[32]; // Mudar esse array de string para tipo Registrador
-    int registerValues[32];
-    string Instructions[5];
-
 public:
-    void add();
-    void sub();
-    void And(); // Se for letra minuscula da zika > and é paralavra reservada
-    void Or();  // Se for letra minuscula da zika > or é paralavra reservada
-    void slt();
-    void jr();
+    R_instructions();
+    ~R_instructions();
+    void r_type(Word res, Word a0, Word a1, int function);
+    void add(Word res, Word a0, Word a1);
+    void sub(Word res, Word a0, Word a1);
+    void And(Word res, Word a0, Word a1); // Se for letra minuscula da zika > and é paralavra reservada
+    void Or(Word res, Word a0, Word a1);  // Se for letra minuscula da zika > or é paralavra reservada
+    void slt(Word res, Word a0, Word a1);
+    void jr(Word res, Word a0, Word a1);
 };

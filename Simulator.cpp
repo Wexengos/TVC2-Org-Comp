@@ -2,6 +2,7 @@
 #include <string>
 //#include <cstdint>
 #include "Simulator.h"
+#include "R_instructions.h"
 
 using namespace std;
 
@@ -47,7 +48,7 @@ void Simulator::printRegisters()
     cout << "Banco de registradores: " << endl;
     for (int i = 0; i < 32; i++)
     {
-        cout << i+1 << " - Registrador -> " << this->getReg(i)->getName() << endl;
+        cout << i + 1 << " - Registrador -> " << this->getReg(i)->getName() << endl;
     }
 }
 
@@ -102,7 +103,7 @@ void Simulator::IDStageExec()
     auxInfoInst.setConstant(Word((int)0));
     auxInfoInst.setOffset(Word((int)0));
     auxInfoInst.setAddress(Word((int)0));
-
+    aux->setInfo(auxInfoInst);
     ID = aux;
 
     cout << "Opcode da instrucao >> " << ID->getOpcode() << endl;
@@ -117,14 +118,43 @@ void Simulator::IDStageExec()
     cout << "Finalizando IDStage." << endl;
 }
 
+void Simulator::EXStageExec()
+{
+    cout << endl
+         << "Executando EXStage." << endl;
+
+    InfoInst auxInfoInst = ID->getInfo();
+    EXStage *aux = new EXStage();
+    Word a0, a1, res, res0;
+
+    cout << "OpCode: " << ID->getOpcode() << " " << ID->getFunction() << endl;
+    char str = auxInfoInst.getType()[0];
+
+    switch (str)
+    {
+    case 'R':
+
+        break;
+    case 'J':
+
+        break;
+    case 'I':
+
+        break;
+    default:
+        break;
+    }
+}
+
 void Simulator::exec(string input)
 {
 
     setRegisters();
     this->IFStageExec(input);
     this->IDStageExec();
+    this->EXStageExec();
 
-    printRegisters();
+    // printRegisters();
 
     // {
     //     for (int i = 0; i < 32; i++)
