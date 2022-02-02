@@ -17,8 +17,8 @@ class InfoInst
 private:
     bool executed, type_i, mem_read, mem_write, reg_write;
     bitset<32> PC;
-    bitset<5> rs;
-    bitset<5> rt;
+    int rs;
+    int rt;
     bitset<32> reg1;
     bitset<32> reg2;
     bitset<16> Immediate;
@@ -45,11 +45,11 @@ public:
     void setReg2(bitset<32> val) { reg2 = val; };
     bitset<32> getReg2() { return reg2; };
 
-    void setRt(bitset<5> val) { rt = val; };
-    bitset<5> getRt() { return rt; };
+    void setRt(int val) { rt = val; };
+    int getRt() { return rt; };
 
-    void setRs(bitset<5> val) { rs = val; };
-    bitset<5> getRs() { return rs; };
+    void setRs(int val) { rs = val; };
+    int getRs() { return rs; };
 
     void setPC(bitset<32> val) { PC = val; };
     bitset<32> getPC() { return PC; };

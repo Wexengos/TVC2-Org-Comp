@@ -7,7 +7,6 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "Word.hpp"
 
 using namespace std;
 // addi, lw, sw, beq, bne

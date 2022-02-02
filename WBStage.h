@@ -16,13 +16,32 @@ private:
     bitset<5> rs;
     bitset<5> rt;
     bitset<5> address;
-    bool regWrite, executed;
+    bool regWrite, executed, firstExecuted;
 
 public:
-    WBStage(){};
+    WBStage()
+    {
+        executed = true;
+        firstExecuted = false;
+    };
     ~WBStage(){};
-    bool getExecuted() { return executed; };
-    void setExecuted(bool val) { executed = val; };
+    bool getExecuted()
+    {
+        return executed;
+    };
+    void setExecuted(bool val)
+    {
+        executed = val;
+    };
+
+    bool getFirstExecuted()
+    {
+        return firstExecuted;
+    };
+    void setFirstExecuted(bool val)
+    {
+        firstExecuted = val;
+    };
 
     void setInfo(InfoInst inf) { info = inf; };
     InfoInst getInfo() { return info; }

@@ -17,12 +17,13 @@ class IFStage
 private:
     bitset<32> PC;
     string instruction;
-    bool executed;
+    bool executed, firstExecuted;
 
 public:
     IFStage()
     {
         executed = false;
+        firstExecuted = false;
         instruction = "";
     };
     ~IFStage();
@@ -35,8 +36,25 @@ public:
     void setPC(int value) { PC = value; };
     bitset<32> getPC() { return PC; };
 
-    bool getExecuted() { return executed; };
-    void setExecuted(bool val) { executed = val; };
+    bool getExecuted()
+    {
+        cout << "Get IF " << executed << endl;
+        return executed;
+    };
+    void setExecuted(bool val)
+    {
+        cout << "DoSet IF " << val << endl;
+        executed = val;
+    };
+    
+    bool getFirstExecuted()
+    {
+        return firstExecuted;
+    };
+    void setFirstExecuted(bool val)
+    {
+        firstExecuted = val;
+    };
 };
 
 #endif

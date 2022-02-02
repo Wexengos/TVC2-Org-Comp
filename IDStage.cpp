@@ -7,7 +7,11 @@
 #include "IDStage.h"
 //#include <cstdint>
 
-IDStage::IDStage() {}
+IDStage::IDStage()
+{
+    executed = true;
+    firstExecuted = false;
+}
 
 void IDStage::binaryToDecimal(string input, string auxFunct, string auxRs, string auxRd, string auxRt)
 {
@@ -26,7 +30,6 @@ void IDStage::binaryToDecimal(string input, string auxFunct, string auxRs, strin
 
     s = input.size();
 
-    cout << "pintinho: " << auxFunct << endl;
     while (s--)
     {
         if (input[s] == '0' || input[s] == '1')
@@ -55,15 +58,12 @@ void IDStage::binaryToDecimal(string input, string auxFunct, string auxRs, strin
         }
     };
 
-    cout << "\nEquivalente decimal do numero binario: " << dec << "|| " << dec2 << "|| " << dec3 << "|| " << dec4 << endl;
+    cout << "\nEquivalente decimal do numero binario - OPCODE: " << dec << "|| FUNCTION: " << dec2 << "|| RS: " << dec3 << "|| RD: " << dec4 << endl;
 
     this->opcode = dec;
     this->function = dec2;
-    cout << "A1" << endl;
     this->rs = dec3;
-    cout << "A2" << endl;
     this->rd = dec4;
-    cout << "A3" << endl;
 }
 
 char IDStage::binToType(string input)
@@ -97,7 +97,6 @@ char IDStage::binToType(string input)
     }
 
     this->binaryToDecimal(auxOp, auxFunct, auxRs, auxRt, auxRd);
-    cout << "aqui";
     if (this->opcode == 0)
     {
         this->type = 'R';

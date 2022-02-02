@@ -5,7 +5,6 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "Word.hpp"
 using namespace std;
 // j, jr, jal.
 

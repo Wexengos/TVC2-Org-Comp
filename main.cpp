@@ -10,7 +10,7 @@ using namespace std;
 void read_txt(vector<string> &s, string file_name)
 {
     cout << "Lendo arquivo..." << endl;
-    ifstream arq("input.txt");
+    ifstream arq(file_name);
 
     if (arq.is_open())
     {

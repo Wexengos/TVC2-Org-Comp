@@ -22,4 +22,7 @@ string J_instructions::j_type(int opcode)
     default:
         break;
     }
+    
+
+    return "";
 }

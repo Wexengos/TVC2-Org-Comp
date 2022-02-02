@@ -16,7 +16,7 @@ private:
     InfoInst info;
     int opcode, function, rt, rs, rd;
     char type;
-    bool executed;
+    bool executed, firstExecuted;
 
 public:
     IDStage();
@@ -26,8 +26,23 @@ public:
     void process(string input);
     void binaryToDecimal(string input, string auxFunct, string auxRs, string auxRd, string auxRt);
 
-    bool getExecuted() { return executed; };
-    void setExecuted(bool val) { executed = val; };
+    bool getExecuted()
+    {
+        return executed;
+    };
+    void setExecuted(bool val)
+    {
+        executed = val;
+    };
+    
+    bool getFirstExecuted()
+    {
+        return firstExecuted;
+    };
+    void setFirstExecuted(bool val)
+    {
+        firstExecuted = val;
+    };
 
     int getOpcode() { return opcode; };
     void setOpcode(int val) { opcode = val; };

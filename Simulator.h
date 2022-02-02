@@ -26,7 +26,7 @@ private:
     MEMStage *MEM;
     WBStage *WB;
 
-    int PC;
+    int PC, cycle;
     Registers **registers;
     bitset<32> memory[512];
     bitset<32> memory_data[512];
@@ -40,9 +40,10 @@ public:
 
     void exec(string input);
     void IFStageExec(string input);
-    void EXStageExec();
-    void WBStage();
     void IDStageExec();
+    void EXStageExec();
+    void MEMStageExec();
+    void WBStageExec();
     void setRegisters();
     void printRegisters();
 

@@ -11,7 +11,8 @@ using namespace std;
 class EXStage
 {
 private:
-    bool executed, type_i, mem_read, mem_write, reg_write;
+    bool type_i, mem_read, mem_write, reg_write;
+    bool executed, firstExecuted;
 
     bitset<5> rs;
     bitset<5> rt;
@@ -23,6 +24,21 @@ private:
 public:
     EXStage();
     ~EXStage();
-    bool getExecuted() { return executed; };
-    void setExecuted(bool val) { executed = val; };
+    bool getExecuted()
+    {
+        return executed;
+    };
+    void setExecuted(bool val)
+    {
+        executed = val;
+    };
+    
+    bool getFirstExecuted()
+    {
+        return firstExecuted;
+    };
+    void setFirstExecuted(bool val)
+    {
+        firstExecuted = val;
+    };
 };

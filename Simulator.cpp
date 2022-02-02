@@ -10,13 +10,15 @@ using namespace std;
 Simulator::Simulator()
 {
     PC = 0;
+    cycle = 0;
+
     registers = new Registers *[32];
 
-    IF = NULL;
-    ID = NULL;
-    EX = NULL;
-    MEM = NULL;
-    WB = NULL;
+    IF = new IFStage();
+    ID = new IDStage();
+    EX = new EXStage();
+    MEM = new MEMStage();
+    WB = new WBStage();
 
     PC_left = false;
     isIFStage = false;
@@ -57,61 +59,64 @@ void Simulator::printRegisters()
 
 void Simulator::IFStageExec(string input)
 {
-    // if (IF->getExecuted())
-    // {
-    //     return;
-    // }
+
+    if (this->IF->getExecuted() && this->IF->getFirstExecuted())
+    {
+        return;
+    }
+
+    if (!this->IF->getFirstExecuted())
+    {
+        this->IF->setFirstExecuted(true);
+        return;
+    }
 
     cout << endl
          << "Excutando IFStage." << endl;
 
-    if (this->isIDStage || this->PC_left)
-    {
-        isIFStage = true;
-        cout << "Fechando IFStage." << endl;
-        return;
-    }
-
     IFStage *aux = new IFStage();
 
     aux->setInstruction(input);
+    aux->setExecuted(true);
+
+    IF = aux;
 
     this->PC_left = true;
-    aux->setExecuted(true);
-    this->isIFStage = false;
-    IF = aux;
+    this->isIFStage = true;
+
+    this->ID->setExecuted(false);
+
     cout << "Finalizando  IFStage." << endl;
 }
 
 void Simulator::IDStageExec()
 {
+    if (this->ID->getExecuted() && this->ID->getFirstExecuted())
+    {
+        return;
+    }
+
+    if (!this->ID->getFirstExecuted())
+    {
+        this->ID->setFirstExecuted(true);
+        return;
+    }
+
     cout << endl
          << "Executando IDStage." << endl;
-    // if (this->IF->getExecuted())
-    // {
-    //     return;
-    // }
 
-    // if (this->isEXStage)
-    // {
-    //     this->isIDStage = true;
-    //     //
-    //    }
-
-    cout << "IDStage >> " << IF->getInstruction();
     IDStage *aux;
     InfoInst auxInfoInst;
 
     char str = aux->binToType(IF->getInstruction());
 
-    cout << "Saiu bin to type= " << str << endl;
     if (aux->getOpcode() == 0)
     {
         R_instructions *r_instru = new R_instructions();
         auxInfoInst.setAddress(aux->getRd());
         auxInfoInst.setTypeI(0);
         string decodeInst = r_instru->r_type(aux->getFunction());
-        auxInfoInst.setAluOp(01);
+        auxInfoInst.setAluOp(1);
         if (decodeInst == "add")
         {
             cout << "ADD" << endl;
@@ -150,7 +155,7 @@ void Simulator::IDStageExec()
             cout << "LW" << endl;
             auxInfoInst.setInstruction("lw");
             auxInfoInst.setAddress(aux->getRt());
-            auxInfoInst.setAluOp(01);
+            auxInfoInst.setAluOp(1);
             auxInfoInst.setMemRead(true);
             auxInfoInst.setMemWrite(false);
             auxInfoInst.setRegWrite(true);
@@ -160,7 +165,7 @@ void Simulator::IDStageExec()
             cout << "SW" << endl;
             auxInfoInst.setInstruction("sw");
             auxInfoInst.setAddress(aux->getRt());
-            auxInfoInst.setAluOp(01);
+            auxInfoInst.setAluOp(1);
             auxInfoInst.setMemRead(false);
             auxInfoInst.setMemWrite(true);
             auxInfoInst.setRegWrite(false);
@@ -170,7 +175,7 @@ void Simulator::IDStageExec()
             auxInfoInst.setInstruction("beq");
             cout << "BEQ" << endl;
             auxInfoInst.setAddress(aux->getRt());
-            auxInfoInst.setAluOp(01);
+            auxInfoInst.setAluOp(1);
             auxInfoInst.setMemRead(false);
             auxInfoInst.setMemWrite(true);
             auxInfoInst.setRegWrite(false);
@@ -180,7 +185,7 @@ void Simulator::IDStageExec()
             auxInfoInst.setInstruction("bne");
             cout << "BNE" << endl;
             auxInfoInst.setAddress(aux->getRt());
-            auxInfoInst.setAluOp(01);
+            auxInfoInst.setAluOp(1);
             auxInfoInst.setMemRead(false);
             auxInfoInst.setMemWrite(false);
             auxInfoInst.setRegWrite(false);
@@ -190,7 +195,7 @@ void Simulator::IDStageExec()
             auxInfoInst.setInstruction("addi");
             cout << "ADDI" << endl;
             auxInfoInst.setAddress(aux->getRt());
-            auxInfoInst.setAluOp(00);
+            auxInfoInst.setAluOp(0);
             auxInfoInst.setMemRead(false);
             auxInfoInst.setMemWrite(true);
             auxInfoInst.setRegWrite(true);
@@ -223,50 +228,108 @@ void Simulator::IDStageExec()
             auxInfoInst.setRegWrite(false);
         }
     }
+
+    EX->setExecuted(false);
+
     aux->setInfo(auxInfoInst);
+
     ID = aux;
 
-    cout
-        << "Opcode da instrucao >> " << aux->getOpcode() << endl;
+    ID->setExecuted(true);
 
     cout << "Finalizando IDStage." << endl;
 }
 
 void Simulator::EXStageExec()
 {
-    // cout << endl
-    //      << "Executando EXStage." << endl;
+    if (this->EX->getExecuted() && this->EX->getFirstExecuted())
+    {
+        return;
+    }
 
-    // InfoInst auxInfoInst = ID->getInfo();
-    // EXStage *aux = new EXStage();
-    // string str = auxInfoInst.getInstruction();
+    if (!this->ID->getFirstExecuted())
+    {
+        this->ID->setFirstExecuted(true);
+        return;
+    }
 
-    // if (str)
-    // {
-    //     auxInfoInst.setRs;
-    // }
+    cout << endl
+         << "Executando EXStage." << endl;
+
+    EX->setExecuted(true);
+    MEM->setExecuted(false);
 }
 
-void Simulator::MEMStage()
+void Simulator::MEMStageExec()
 {
+    if (this->MEM->getExecuted() && this->MEM->getFirstExecuted())
+        return;
+
+    if (!this->isMEMStage)
+    {
+        this->MEM->setFirstExecuted(true);
+        return;
+    }
+
+    cout << endl
+         << "Executando MEMStage." << endl;
+
+    MEM->setExecuted(true);
+    WB->setExecuted(false);
 }
 
-void Simulator::WBStage()
+void Simulator::WBStageExec()
 {
+    if (this->WB->getExecuted() && this->WB->getFirstExecuted())
+    {
+        return;
+    }
+
+    if (!this->WB->getFirstExecuted())
+    {
+        this->WB->setFirstExecuted(true);
+        return;
+    }
+
+    cout << endl
+         << "Executando WBStage." << endl;
 
     if (WB->getInfo().getRegWrite())
     {
         this->setRegValue(WB->getInfo().getAddress().to_ulong(), WB->getResult());
     }
+
+    WB->setExecuted(true);
+    IF->setExecuted(true);
 }
 
 void Simulator::exec(string input)
 {
-
     setRegisters();
-    cout << "Aqui";
-    this->IFStageExec(input);
-    this->IDStageExec();
+
+    while (true)
+    {
+
+        if (IF->getExecuted() &&
+            ID->getExecuted() &&
+            EX->getExecuted() &&
+            MEM->getExecuted() &&
+            WB->getExecuted())
+        {
+            return;
+        }
+
+        this->WBStageExec();
+        this->MEMStageExec();
+        this->EXStageExec();
+        this->IDStageExec();
+        this->IFStageExec(input);
+
+        this->cycle++;
+    }
+
+    return;
+
     //  this->EXStageExec();
 
     // printRegisters();
