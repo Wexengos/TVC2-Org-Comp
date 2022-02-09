@@ -60,48 +60,28 @@ void Simulator::printRegisters()
 void Simulator::IFStageExec(string input)
 {
 
-    if (this->IF->getExecuted() && this->IF->getFirstExecuted())
-    {
-        return;
-    }
-
-    if (!this->IF->getFirstExecuted())
-    {
-        this->IF->setFirstExecuted(true);
-        return;
-    }
-
     cout << endl
          << "Excutando IFStage." << endl;
 
     IFStage *aux = new IFStage();
 
     aux->setInstruction(input);
-    aux->setExecuted(true);
+    aux->setExecuted(false);
 
-    IF = aux;
+    this->IF = aux;
+
+    cout << "A não. " << this->IF->getExecuted() << endl;
 
     this->PC_left = true;
     this->isIFStage = true;
 
-    this->ID->setExecuted(false);
+    this->ID->setExecuted(true);
 
     cout << "Finalizando  IFStage." << endl;
 }
 
 void Simulator::IDStageExec()
 {
-    if (this->ID->getExecuted() && this->ID->getFirstExecuted())
-    {
-        return;
-    }
-
-    if (!this->ID->getFirstExecuted())
-    {
-        this->ID->setFirstExecuted(true);
-        return;
-    }
-
     cout << endl
          << "Executando IDStage." << endl;
 
@@ -229,68 +209,37 @@ void Simulator::IDStageExec()
         }
     }
 
-    EX->setExecuted(false);
+    EX->setExecuted(true);
 
     aux->setInfo(auxInfoInst);
 
     ID = aux;
 
-    ID->setExecuted(true);
+    ID->setExecuted(false);
 
     cout << "Finalizando IDStage." << endl;
 }
 
 void Simulator::EXStageExec()
 {
-    if (this->EX->getExecuted() && this->EX->getFirstExecuted())
-    {
-        return;
-    }
-
-    if (!this->ID->getFirstExecuted())
-    {
-        this->ID->setFirstExecuted(true);
-        return;
-    }
-
     cout << endl
          << "Executando EXStage." << endl;
 
-    EX->setExecuted(true);
-    MEM->setExecuted(false);
+    EX->setExecuted(false);
+    MEM->setExecuted(true);
 }
 
 void Simulator::MEMStageExec()
 {
-    if (this->MEM->getExecuted() && this->MEM->getFirstExecuted())
-        return;
-
-    if (!this->isMEMStage)
-    {
-        this->MEM->setFirstExecuted(true);
-        return;
-    }
-
     cout << endl
          << "Executando MEMStage." << endl;
 
-    MEM->setExecuted(true);
-    WB->setExecuted(false);
+    MEM->setExecuted(false);
+    WB->setExecuted(true);
 }
 
 void Simulator::WBStageExec()
 {
-    if (this->WB->getExecuted() && this->WB->getFirstExecuted())
-    {
-        return;
-    }
-
-    if (!this->WB->getFirstExecuted())
-    {
-        this->WB->setFirstExecuted(true);
-        return;
-    }
-
     cout << endl
          << "Executando WBStage." << endl;
 
@@ -299,8 +248,7 @@ void Simulator::WBStageExec()
         this->setRegValue(WB->getInfo().getAddress().to_ulong(), WB->getResult());
     }
 
-    WB->setExecuted(true);
-    IF->setExecuted(true);
+    WB->setExecuted(false);
 }
 
 void Simulator::exec(string input)
@@ -309,21 +257,42 @@ void Simulator::exec(string input)
 
     while (true)
     {
-
-        if (IF->getExecuted() &&
-            ID->getExecuted() &&
-            EX->getExecuted() &&
-            MEM->getExecuted() &&
-            WB->getExecuted())
+        cout << "CICLO ATUAL: " << this->cycle << endl;
+        // cout << "EXECUÇÕES: " << this->IF->getExecuted() <<
+        if (this->IF->getExecuted() == 0 &&
+            this->ID->getExecuted() == 0 &&
+            this->EX->getExecuted() == 0 &&
+            this->MEM->getExecuted() == 0 &&
+            this->WB->getExecuted() == 0)
         {
+            cout << "bolota" << endl;
             return;
         }
 
-        this->WBStageExec();
-        this->MEMStageExec();
-        this->EXStageExec();
-        this->IDStageExec();
-        this->IFStageExec(input);
+        if (this->WB->getExecuted() == 1)
+        {
+            this->WBStageExec();
+        }
+
+        if (this->MEM->getExecuted() == 1)
+        {
+            this->MEMStageExec();
+        }
+
+        if (this->EX->getExecuted() == 1)
+        {
+            this->EXStageExec();
+        }
+
+        if (this->ID->getExecuted() == 1)
+        {
+            this->IDStageExec();
+        }
+
+        if (this->IF->getExecuted() == 1)
+        {
+            this->IFStageExec(input);
+        }
 
         this->cycle++;
     }

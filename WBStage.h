@@ -21,7 +21,7 @@ private:
 public:
     WBStage()
     {
-        executed = true;
+        executed = false;
         firstExecuted = false;
     };
     ~WBStage(){};

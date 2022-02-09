@@ -22,7 +22,7 @@ private:
 public:
     IFStage()
     {
-        executed = false;
+        executed = true;
         firstExecuted = false;
         instruction = "";
     };

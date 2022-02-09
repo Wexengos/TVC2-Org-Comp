@@ -22,7 +22,7 @@ private:
 public:
     MEMStage()
     {
-        executed = true;
+        executed = false;
         firstExecuted = false;
     };
     ~MEMStage(){};

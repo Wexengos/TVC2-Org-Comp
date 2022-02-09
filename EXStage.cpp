@@ -8,7 +8,7 @@
 
 EXStage::EXStage()
 {
-    executed = true;
+    executed = false;
     firstExecuted = false;
 }
 // EXStage::~EXStage();

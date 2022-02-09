@@ -9,7 +9,7 @@
 
 IDStage::IDStage()
 {
-    executed = true;
+    executed = false;
     firstExecuted = false;
 }
 
